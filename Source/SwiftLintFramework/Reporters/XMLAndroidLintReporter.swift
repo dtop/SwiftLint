@@ -3,7 +3,7 @@
 //  SwiftLint
 //
 //  Created by Danilo Topalovic on 25.11.15.
-//  Copyright © 2015 Realm. All rights reserved.
+//  Copyright © 2015 DT. All rights reserved.
 //
 
 import Foundation
@@ -20,7 +20,7 @@ public struct XMLAndroidLintReporter: Reporter {
     }
 
     /**
-     Satisfied the protocol
+     Satisfies the protocol
      
      - parameter violations: array of found violations
      
