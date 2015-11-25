@@ -19,6 +19,13 @@ public struct XMLAndroidLintReporter: Reporter {
         return "Reports violations as a xml readable by Android-Lint on Jenkins"
     }
 
+    /**
+     Satisfied the protocol
+     
+     - parameter violations: array of found violations
+     
+     - returns: the xml string
+     */
     public static func generateReport(violations: [StyleViolation]) -> String {
 
         root.addAttribute(self.makeAttribute(key: "format", stringValue: "4"))
@@ -33,6 +40,13 @@ public struct XMLAndroidLintReporter: Reporter {
         return root.XMLString
     }
 
+    /**
+     Generates the XMLElement for a violation
+     
+     - parameter violation: the violation
+     
+     - returns: the XMLElement
+     */
     public static func generateViolationXml(violation: StyleViolation) -> NSXMLElement {
 
         let issue = NSXMLElement(name: "issue")
@@ -40,7 +54,6 @@ public struct XMLAndroidLintReporter: Reporter {
         let severity = violation.severity
         let ruleDesc = violation.ruleDescription
 
-//        issue.addAttribute(NSXMLNode.attributeWithName("id", stringValue: violation.) as! NSXMLNode)
         issue.addAttribute(self.makeAttribute(key: "severity", stringValue: severity.rawValue))
         issue.addAttribute(self.makeAttribute(key: "message", stringValue: violation.reason))
         issue.addAttribute(self.makeAttribute(key: "category", stringValue: ruleDesc.identifier))
@@ -69,25 +82,21 @@ public struct XMLAndroidLintReporter: Reporter {
         return issue
     }
 
+    /**
+     Creates an attribute
+     
+     - parameter key:   the attribute name
+     - parameter value: the attribute value
+     
+     - returns: the attribute node
+     */
     private static func makeAttribute(key key: String, stringValue value: String) -> NSXMLNode {
 
         guard let attr = NSXMLNode.attributeWithName(key, stringValue: value) as? NSXMLNode else {
-
             // this can never happen
             return NSXMLNode()
         }
 
         return attr
-    }
-
-    private static func textualSeverity(severity: ViolationSeverity) -> String {
-
-        switch severity {
-        case .Warning:
-            return "Warning"
-
-        case .Error:
-            return "Error"
-        }
     }
 }
