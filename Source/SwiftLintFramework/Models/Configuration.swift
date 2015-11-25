@@ -33,6 +33,8 @@ public struct Configuration {
             return JSONReporter.self
         case CSVReporter.identifier:
             return CSVReporter.self
+        case XMLAndroidLintReporter.identifier:
+            return XMLAndroidLintReporter.self
         default:
             fatalError("no reporter with identifier '\(reporter)' available.")
         }
